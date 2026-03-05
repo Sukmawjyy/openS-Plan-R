@@ -98,8 +98,8 @@ export async function checkMcpHandshake(
     child.stdout?.on("data", (chunk: Buffer) => {
       stdoutBuf += chunk.toString();
       // Scan only newly appended lines — avoids O(n^2) re-splitting
-      let newlineIdx: number;
-      while ((newlineIdx = stdoutBuf.indexOf("\n", stdoutCursor)) !== -1) {
+      let newlineIdx = stdoutBuf.indexOf("\n", stdoutCursor);
+      while (newlineIdx !== -1) {
         const line = stdoutBuf.slice(stdoutCursor, newlineIdx).trim();
         stdoutCursor = newlineIdx + 1;
         if (!line) continue;
@@ -117,6 +117,7 @@ export async function checkMcpHandshake(
         } catch {
           /* not JSON yet */
         }
+        newlineIdx = stdoutBuf.indexOf("\n", stdoutCursor);
       }
     });
 

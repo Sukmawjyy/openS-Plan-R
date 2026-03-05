@@ -9,8 +9,8 @@
 import type { ClientType } from "../clients/types.js";
 import type { AgentSpec } from "../core/skill-types.js";
 import * as claudeCodeAgentFormat from "./formats/claude-code-agent-format.js";
-import * as rooCodeAgentFormat from "./formats/roo-code-agent-format.js";
 import * as codexAgentFormat from "./formats/codex-agent-format.js";
+import * as rooCodeAgentFormat from "./formats/roo-code-agent-format.js";
 
 /** Common interface all agent format adapters satisfy */
 export interface AgentFormatAdapter {
@@ -18,11 +18,7 @@ export interface AgentFormatAdapter {
 }
 
 /** Clients that support native agent/mode definitions */
-const AGENT_SUPPORTED_CLIENTS = new Set<ClientType>([
-  "claude-code",
-  "roo-code",
-  "codex-cli",
-]);
+const AGENT_SUPPORTED_CLIENTS = new Set<ClientType>(["claude-code", "roo-code", "codex-cli"]);
 
 /** Returns true if the client supports agent config syncing */
 export function clientSupportsAgents(clientType: ClientType): boolean {

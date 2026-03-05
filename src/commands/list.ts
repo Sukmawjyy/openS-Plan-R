@@ -96,7 +96,6 @@ export default defineCommand({
   },
 });
 
-
 function formatClients(clients: string[]): string {
   return clients.map((c) => CLIENT_DISPLAY[c] ?? c).join(", ");
 }

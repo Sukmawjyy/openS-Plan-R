@@ -88,9 +88,12 @@ const syncCommand = defineCommand({
     p.intro(pc.cyan("mcpman team sync"));
     try {
       const result = syncTeamToLocal();
-      if (result.added.length) p.log.step(`Added: ${result.added.map((s) => pc.green(s)).join(", ")}`);
-      if (result.updated.length) p.log.step(`Updated: ${result.updated.map((s) => pc.cyan(s)).join(", ")}`);
-      if (!result.added.length && !result.updated.length) p.log.info("Local lockfile already up to date.");
+      if (result.added.length)
+        p.log.step(`Added: ${result.added.map((s) => pc.green(s)).join(", ")}`);
+      if (result.updated.length)
+        p.log.step(`Updated: ${result.updated.map((s) => pc.cyan(s)).join(", ")}`);
+      if (!result.added.length && !result.updated.length)
+        p.log.info("Local lockfile already up to date.");
       p.outro(pc.dim(`${result.added.length + result.updated.length} server(s) synced.`));
     } catch (err) {
       p.log.error(err instanceof Error ? err.message : String(err));
@@ -104,13 +107,24 @@ const syncCommand = defineCommand({
 const shareCommand = defineCommand({
   meta: { name: "share", description: "Push local servers to team config" },
   args: {
-    servers: { type: "positional", description: "Server name(s) to share (comma-separated)", required: false },
+    servers: {
+      type: "positional",
+      description: "Server name(s) to share (comma-separated)",
+      required: false,
+    },
   },
   run({ args }) {
     p.intro(pc.cyan("mcpman team share"));
-    const names = args.servers ? args.servers.split(",").map((s: string) => s.trim()).filter(Boolean) : [];
+    const names = args.servers
+      ? args.servers
+          .split(",")
+          .map((s: string) => s.trim())
+          .filter(Boolean)
+      : [];
     if (!names.length) {
-      p.log.error("Provide server name(s) to share, e.g.: mcpman team share my-server,other-server");
+      p.log.error(
+        "Provide server name(s) to share, e.g.: mcpman team share my-server,other-server",
+      );
       process.exit(1);
     }
     try {
@@ -129,7 +143,11 @@ const shareCommand = defineCommand({
 const auditCommand = defineCommand({
   meta: { name: "audit", description: "Show team audit log" },
   args: {
-    limit: { type: "string", description: "Number of entries to show (default: 20)", default: "20" },
+    limit: {
+      type: "string",
+      description: "Number of entries to show (default: 20)",
+      default: "20",
+    },
   },
   run({ args }) {
     const log = getAuditLog();
@@ -137,12 +155,14 @@ const auditCommand = defineCommand({
       console.log(pc.dim("No audit entries found."));
       return;
     }
-    const n = Math.max(1, parseInt(args.limit, 10) || 20);
+    const n = Math.max(1, Number.parseInt(args.limit, 10) || 20);
     const entries = log.slice(-n).reverse();
     console.log("");
     for (const entry of entries) {
       const ts = pc.dim(new Date(entry.timestamp).toLocaleString());
-      console.log(`  ${ts}  ${pc.cyan(entry.actor)}  ${pc.bold(entry.action)}  ${pc.yellow(entry.target)}${entry.details ? pc.dim(` (${entry.details})`) : ""}`);
+      console.log(
+        `  ${ts}  ${pc.cyan(entry.actor)}  ${pc.bold(entry.action)}  ${pc.yellow(entry.target)}${entry.details ? pc.dim(` (${entry.details})`) : ""}`,
+      );
     }
     console.log("");
     console.log(pc.dim(`  Showing ${entries.length} of ${log.length} entries`));

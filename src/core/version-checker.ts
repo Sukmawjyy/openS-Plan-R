@@ -41,7 +41,7 @@ export function compareVersions(a: string, b: string): -1 | 0 | 1 {
 
   // Numeric cores are equal — compare pre-release per semver: no pre-release > pre-release
   if (aPre === undefined && bPre === undefined) return 0;
-  if (aPre === undefined) return 1;  // 1.0.0 > 1.0.0-alpha
+  if (aPre === undefined) return 1; // 1.0.0 > 1.0.0-alpha
   if (bPre === undefined) return -1; // 1.0.0-alpha < 1.0.0
   // Both have pre-release: compare lexicographically
   if (aPre < bPre) return -1;

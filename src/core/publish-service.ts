@@ -8,12 +8,12 @@ import { createHash } from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { EnvVarSpec } from "./registry.js";
 import {
   type PublishOptions,
   type PublishResult,
   publishToMcpmanRegistry,
 } from "./mcpman-registry-client.js";
+import type { EnvVarSpec } from "./registry.js";
 
 export interface PackageManifest {
   name: string;
@@ -55,7 +55,9 @@ export function readPackageManifest(dir?: string): PackageManifest {
   const name = String(merged.name ?? "");
   const version = String(merged.version ?? "0.0.0");
   const description = String(merged.description ?? "");
-  const type = VALID_TYPES.has(String(merged.type)) ? (String(merged.type) as PackageManifest["type"]) : "server";
+  const type = VALID_TYPES.has(String(merged.type))
+    ? (String(merged.type) as PackageManifest["type"])
+    : "server";
   const runtime = VALID_RUNTIMES.has(String(merged.runtime ?? "node"))
     ? (String(merged.runtime ?? "node") as PackageManifest["runtime"])
     : "node";

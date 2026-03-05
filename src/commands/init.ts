@@ -94,7 +94,7 @@ export default defineCommand({
         label: `${cs.client.displayName} (${Object.keys(cs.servers).length} servers)`,
       }));
 
-      const toImport = await p.multiselect<typeof options, string>({
+      const toImport = await p.multiselect({
         message: "Import existing servers into lockfile?",
         options,
         required: false,
@@ -105,7 +105,7 @@ export default defineCommand({
         return;
       }
 
-      selected = toImport as string[];
+      selected = toImport as unknown as string[];
     }
 
     let importCount = 0;
@@ -120,7 +120,7 @@ export default defineCommand({
           resolved,
           integrity: computeIntegrity(resolved),
           runtime: "node",
-          command: entry.command,
+          command: entry.command ?? "npx",
           args: entry.args ?? [],
           envVars: Object.keys(entry.env ?? {}),
           installedAt: new Date().toISOString(),

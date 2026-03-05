@@ -83,7 +83,11 @@ export function loadSkillFromFile(filePath: string): SkillSpec {
   }
 
   // If stored as an InstalledSkill envelope, extract the nested spec
-  if (typeof parsed === "object" && parsed !== null && "spec" in (parsed as Record<string, unknown>)) {
+  if (
+    typeof parsed === "object" &&
+    parsed !== null &&
+    "spec" in (parsed as Record<string, unknown>)
+  ) {
     parsed = (parsed as Record<string, unknown>).spec;
   }
 

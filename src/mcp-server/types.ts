@@ -38,7 +38,12 @@ export const searchSchema = {
   type: "object",
   properties: {
     query: { type: "string", description: "Search query string" },
-    limit: { type: "number", description: "Maximum number of results (default: 10, max: 100)", minimum: 1, maximum: 100 },
+    limit: {
+      type: "number",
+      description: "Maximum number of results (default: 10, max: 100)",
+      minimum: 1,
+      maximum: 100,
+    },
   },
   required: ["query"],
 };

@@ -55,9 +55,7 @@ export function formatAgents(agents: AgentSpec[]): FormatOutput[] {
   if (agents.length === 0) return [];
 
   const customModes: RooCustomMode[] = agents.map((agent) => {
-    const groups = agent.tools && agent.tools.length > 0
-      ? toolsToGroups(agent.tools)
-      : ["read"];
+    const groups = agent.tools && agent.tools.length > 0 ? toolsToGroups(agent.tools) : ["read"];
 
     const mode: RooCustomMode = {
       slug: agent.name,
@@ -73,7 +71,7 @@ export function formatAgents(agents: AgentSpec[]): FormatOutput[] {
     return mode;
   });
 
-  const content = JSON.stringify({ customModes }, null, 2) + "\n";
+  const content = `${JSON.stringify({ customModes }, null, 2)}\n`;
 
   return [{ filename: ".roomodes", content }];
 }

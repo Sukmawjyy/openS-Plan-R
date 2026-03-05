@@ -74,7 +74,7 @@ export async function installServer(input: string, options: InstallOptions = {})
   } else if (options.yes || clients.length === 1) {
     selectedClients = clients;
   } else {
-    const chosen = await p.multiselect<{ value: string; label: string }[], string>({
+    const chosen = await p.multiselect({
       message: "Install to which client(s)?",
       options: clients.map((c) => ({ value: c.type, label: c.displayName })),
       required: true,
@@ -83,7 +83,7 @@ export async function installServer(input: string, options: InstallOptions = {})
       p.outro("Cancelled.");
       process.exit(0);
     }
-    selectedClients = clients.filter((c) => (chosen as string[]).includes(c.type));
+    selectedClients = clients.filter((c) => (chosen as unknown as string[]).includes(c.type));
   }
 
   // 4. Collect env vars — priority: --env flags > vault > prompt
@@ -200,7 +200,7 @@ export async function installRemoteServer(options: RemoteInstallOptions): Promis
   } else if (options.yes || clients.length === 1) {
     selectedClients = clients;
   } else {
-    const chosen = await p.multiselect<{ value: string; label: string }[], string>({
+    const chosen = await p.multiselect({
       message: "Install to which client(s)?",
       options: clients.map((c) => ({ value: c.type, label: c.displayName })),
       required: true,
@@ -209,7 +209,7 @@ export async function installRemoteServer(options: RemoteInstallOptions): Promis
       p.outro("Cancelled.");
       process.exit(0);
     }
-    selectedClients = clients.filter((c) => (chosen as string[]).includes(c.type));
+    selectedClients = clients.filter((c) => (chosen as unknown as string[]).includes(c.type));
   }
 
   // 4. Build remote ServerEntry

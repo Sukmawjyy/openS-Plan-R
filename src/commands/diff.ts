@@ -24,7 +24,6 @@ const VALID_CLIENTS: ClientType[] = [
   "zed",
 ];
 
-
 export default defineCommand({
   meta: {
     name: "diff",

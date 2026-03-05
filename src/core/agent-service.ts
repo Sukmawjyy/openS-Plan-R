@@ -6,8 +6,8 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import type { ClientType } from "../clients/types.js";
 import { getAgentFormatAdapter } from "../adapters/agent-format-registry.js";
+import type { ClientType } from "../clients/types.js";
 import { listSkills } from "./skill-service.js";
 import type { AgentSpec, SkillSpec } from "./skill-types.js";
 
@@ -74,9 +74,7 @@ export function listAllInstalledAgents(): AgentSpec[] {
 // ── Export ─────────────────────────────────────────────────────────────────
 
 /** Locations to scan when exporting existing agent configs */
-const AGENT_SCAN_LOCATIONS = [
-  { dir: ".claude/agents", client: "claude-code" as const },
-];
+const AGENT_SCAN_LOCATIONS = [{ dir: ".claude/agents", client: "claude-code" as const }];
 
 /**
  * Scan a project directory for existing agent config files and build AgentSpec[].

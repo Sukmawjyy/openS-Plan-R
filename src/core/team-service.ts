@@ -8,8 +8,8 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { TeamAuditEntry, TeamConfig, TeamRole, TeamServerEntry } from "./team-types.js";
 import { readLockfile, writeLockfile } from "./lockfile.js";
+import type { TeamAuditEntry, TeamConfig, TeamRole, TeamServerEntry } from "./team-types.js";
 
 export const TEAM_DIR = ".mcpman";
 export const TEAM_FILE = "team.json";
@@ -50,7 +50,7 @@ export function writeTeamConfig(config: TeamConfig, dir?: string): void {
   const filePath = teamFilePath(dir);
   const updated = { ...config, updatedAt: new Date().toISOString() };
   const tmp = `${filePath}.tmp`;
-  fs.writeFileSync(tmp, JSON.stringify(updated, null, 2) + "\n", "utf-8");
+  fs.writeFileSync(tmp, `${JSON.stringify(updated, null, 2)}\n`, "utf-8");
   fs.renameSync(tmp, filePath);
 }
 
@@ -83,7 +83,10 @@ export function addMember(name: string, role: TeamRole, dir?: string): void {
     config.members.push({ name, role, addedAt: new Date().toISOString() });
   }
   writeTeamConfig(config, dir);
-  appendAudit({ actor: os.userInfo().username, action: "add_member", target: name, details: role }, dir);
+  appendAudit(
+    { actor: os.userInfo().username, action: "add_member", target: name, details: role },
+    dir,
+  );
 }
 
 export function removeMember(name: string, dir?: string): void {
@@ -114,7 +117,11 @@ export function removeTeamServer(serverName: string, dir?: string): void {
 
 // ── Sync: team → local lockfile ───────────────────────────────────────────────
 
-export function syncTeamToLocal(dir?: string): { added: string[]; updated: string[]; removed: string[] } {
+export function syncTeamToLocal(dir?: string): {
+  added: string[];
+  updated: string[];
+  removed: string[];
+} {
   const config = readTeamConfig(dir);
   if (!config) throw new Error("Team config not found.");
 
@@ -170,7 +177,10 @@ export function shareLocalToTeam(serverNames: string[], dir?: string): void {
   }
 
   writeTeamConfig(config, dir);
-  appendAudit({ actor: os.userInfo().username, action: "share", target: serverNames.join(", ") }, dir);
+  appendAudit(
+    { actor: os.userInfo().username, action: "share", target: serverNames.join(", ") },
+    dir,
+  );
 }
 
 // ── Audit ─────────────────────────────────────────────────────────────────────
@@ -196,7 +206,7 @@ function appendAudit(entry: Omit<TeamAuditEntry, "timestamp">, dir?: string): vo
     log.push({ ...entry, timestamp: new Date().toISOString() });
     // Write atomically via temp file + rename to avoid partial writes
     const tmp = `${filePath}.tmp`;
-    fs.writeFileSync(tmp, JSON.stringify(log, null, 2) + "\n", "utf-8");
+    fs.writeFileSync(tmp, `${JSON.stringify(log, null, 2)}\n`, "utf-8");
     fs.renameSync(tmp, filePath);
   } catch {
     // Audit failures must never block primary operations

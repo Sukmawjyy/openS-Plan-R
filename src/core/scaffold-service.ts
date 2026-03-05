@@ -28,9 +28,12 @@ export function sanitizeName(name: string): string {
  * Escape a description string for safe interpolation into generated source files.
  * Removes control characters and escapes backslashes, double-quotes, and backticks.
  */
+// biome-ignore lint/suspicious/noControlCharactersInRegex: intentional control char stripping
+const CONTROL_CHARS_RE = /[\x00-\x1f\x7f]/g;
+
 export function escapeDescription(desc: string): string {
   return desc
-    .replace(/[\x00-\x1f\x7f]/g, " ") // strip control chars
+    .replace(CONTROL_CHARS_RE, " ")
     .replace(/\\/g, "\\\\")
     .replace(/"/g, '\\"')
     .replace(/`/g, "\\`");

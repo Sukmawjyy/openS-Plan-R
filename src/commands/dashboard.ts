@@ -7,8 +7,8 @@
  *   mcpman dashboard --port 8080 # custom port
  */
 
-import { defineCommand } from "citty";
 import { intro, log, outro } from "@clack/prompts";
+import { defineCommand } from "citty";
 import { createDashboardServer } from "../core/dashboard-api.js";
 
 const DEFAULT_PORT = 24242;

@@ -37,11 +37,7 @@ function isCacheFresh(entry: CacheEntry<unknown> | null): boolean {
   return entry !== null && Date.now() < entry.expiresAt;
 }
 
-function jsonResponse(
-  res: http.ServerResponse,
-  data: unknown,
-  status = 200,
-): void {
+function jsonResponse(res: http.ServerResponse, data: unknown, status = 200): void {
   const body = JSON.stringify(data);
   res.writeHead(status, {
     "Content-Type": "application/json",
@@ -61,25 +57,20 @@ function corsHeaders(res: http.ServerResponse): void {
 // GET /api/servers — list all servers from lockfile
 async function handleGetServers(res: http.ServerResponse): Promise<void> {
   const lock = readLockfile();
-  const servers: DashboardServerInfo[] = Object.entries(lock.servers).map(
-    ([name, entry]) => ({
-      name,
-      version: entry.version,
-      source: entry.source,
-      runtime: entry.runtime,
-      clients: entry.clients,
-      transport: entry.transport,
-      url: entry.url,
-    }),
-  );
+  const servers: DashboardServerInfo[] = Object.entries(lock.servers).map(([name, entry]) => ({
+    name,
+    version: entry.version,
+    source: entry.source,
+    runtime: entry.runtime,
+    clients: entry.clients,
+    transport: entry.transport,
+    url: entry.url,
+  }));
   jsonResponse(res, servers);
 }
 
 // GET /api/servers/:name — single server detail
-async function handleGetServer(
-  res: http.ServerResponse,
-  name: string,
-): Promise<void> {
+async function handleGetServer(res: http.ServerResponse, name: string): Promise<void> {
   const lock = readLockfile();
   const entry = lock.servers[name];
   if (!entry) {
@@ -121,8 +112,8 @@ async function handleGetClients(res: http.ServerResponse): Promise<void> {
 
 // GET /api/health — health checks (cached 30s)
 async function handleGetHealth(res: http.ServerResponse): Promise<void> {
-  if (isCacheFresh(_healthCache)) {
-    jsonResponse(res, _healthCache!.data);
+  if (isCacheFresh(_healthCache) && _healthCache) {
+    jsonResponse(res, _healthCache.data);
     return;
   }
 
@@ -150,8 +141,8 @@ async function handleGetHealth(res: http.ServerResponse): Promise<void> {
 
 // GET /api/audit — security audit (cached 60s)
 async function handleGetAudit(res: http.ServerResponse): Promise<void> {
-  if (isCacheFresh(_auditCache)) {
-    jsonResponse(res, _auditCache!.data);
+  if (isCacheFresh(_auditCache) && _auditCache) {
+    jsonResponse(res, _auditCache.data);
     return;
   }
 

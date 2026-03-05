@@ -5,10 +5,10 @@
 
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import type { ServerEntry } from "../clients/types.js";
-import { readLockfile } from "../core/lockfile.js";
 import { checkServerHealth } from "../core/health-checker.js";
+import { readLockfile } from "../core/lockfile.js";
 import { scanAllServers, scanServer } from "../core/security-scanner.js";
-import { textResult, errorResult } from "./tool-helpers.js";
+import { errorResult, textResult } from "./tool-helpers.js";
 
 // ── Audit ────────────────────────────────────────────────────────────────────
 
@@ -42,12 +42,14 @@ export async function handleAudit(args: Record<string, unknown>): Promise<CallTo
 
     const lines = reports.map((r) => {
       const vulnCount = r.vulnerabilities.length;
-      const vulnSummary = vulnCount === 0 ? "no vulnerabilities" : `${vulnCount} vulnerability/vulnerabilities`;
+      const vulnSummary =
+        vulnCount === 0 ? "no vulnerabilities" : `${vulnCount} vulnerability/vulnerabilities`;
       return `  ${r.server}  risk: ${r.riskLevel}  score: ${r.score ?? "N/A"}/100  ${vulnSummary}`;
     });
 
     const withIssues = reports.filter((r) => r.riskLevel !== "LOW" && r.riskLevel !== "UNKNOWN");
-    const summary = withIssues.length === 0 ? "all clear" : `${withIssues.length} server(s) with issues`;
+    const summary =
+      withIssues.length === 0 ? "all clear" : `${withIssues.length} server(s) with issues`;
 
     return textResult(
       `Audit results (${reports.length} server(s)) — ${summary}:\n\n${lines.join("\n")}`,

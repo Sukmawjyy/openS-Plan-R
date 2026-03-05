@@ -4,19 +4,19 @@
  * Manages reusable skill bundles — rules + optional MCP servers packaged together.
  */
 
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import * as p from "@clack/prompts";
 import { defineCommand } from "citty";
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import pc from "picocolors";
-import type { InstalledSkill, SkillRule, SkillSpec } from "../core/skill-types.js";
+import { getClientTypes } from "../core/completion-generator.js";
+import { installServer } from "../core/installer.js";
 import {
   installSkill,
   listSkills,
   removeSkill,
   syncSkillsToClient,
 } from "../core/skill-service.js";
-import { installServer } from "../core/installer.js";
-import { getClientTypes } from "../core/completion-generator.js";
+import type { InstalledSkill, SkillRule, SkillSpec } from "../core/skill-types.js";
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -118,7 +118,9 @@ const installCommand = defineCommand({
       }
     }
 
-    p.outro(pc.dim(`Skill "${spec.name}" ready. Run 'mcpman skill sync' to push rules to clients.`));
+    p.outro(
+      pc.dim(`Skill "${spec.name}" ready. Run 'mcpman skill sync' to push rules to clients.`),
+    );
   },
 });
 
@@ -171,7 +173,9 @@ const removeCommand = defineCommand({
       }
       console.log(`${pc.green("✓")} Skill ${pc.bold(args.name)} removed.`);
     } catch (err) {
-      console.error(`${pc.red("✗")} Failed to remove skill: ${err instanceof Error ? err.message : String(err)}`);
+      console.error(
+        `${pc.red("✗")} Failed to remove skill: ${err instanceof Error ? err.message : String(err)}`,
+      );
       process.exit(1);
     }
   },
@@ -200,7 +204,9 @@ const syncCommand = defineCommand({
         if (written.length > 0) {
           totalRules += written.length;
           clientsUpdated++;
-          p.log.step(`${pc.green("✓")} ${pc.cyan(client)}: ${written.length} file${written.length !== 1 ? "s" : ""} written`);
+          p.log.step(
+            `${pc.green("✓")} ${pc.cyan(client)}: ${written.length} file${written.length !== 1 ? "s" : ""} written`,
+          );
         }
       } catch (err) {
         // Skip clients with no adapter — not an error
@@ -211,7 +217,11 @@ const syncCommand = defineCommand({
       }
     }
 
-    p.outro(pc.dim(`${totalRules} file${totalRules !== 1 ? "s" : ""} written across ${clientsUpdated} client${clientsUpdated !== 1 ? "s" : ""}.`));
+    p.outro(
+      pc.dim(
+        `${totalRules} file${totalRules !== 1 ? "s" : ""} written across ${clientsUpdated} client${clientsUpdated !== 1 ? "s" : ""}.`,
+      ),
+    );
   },
 });
 
@@ -273,14 +283,18 @@ const exportCommand = defineCommand({
 
     const outPath = `${cwd}/mcpman-skill.json`;
     try {
-      writeFileSync(outPath, JSON.stringify(spec, null, 2) + "\n", "utf8");
+      writeFileSync(outPath, `${JSON.stringify(spec, null, 2)}\n`, "utf8");
       console.log(`${pc.green("✓")} Written: ${pc.bold("mcpman-skill.json")}`);
     } catch (err) {
       console.error(`${pc.red("✗")} Failed to write spec: ${String(err)}`);
       process.exit(1);
     }
 
-    p.outro(pc.dim(`Exported "${args.name}" v${args.version} with ${rules.length} rule${rules.length !== 1 ? "s" : ""}.`));
+    p.outro(
+      pc.dim(
+        `Exported "${args.name}" v${args.version} with ${rules.length} rule${rules.length !== 1 ? "s" : ""}.`,
+      ),
+    );
   },
 });
 

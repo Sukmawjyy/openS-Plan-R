@@ -6,11 +6,7 @@
 
 import * as p from "@clack/prompts";
 import { defineCommand } from "citty";
-import {
-  publishPackage,
-  readPackageManifest,
-  validateManifest,
-} from "../core/publish-service.js";
+import { publishPackage, readPackageManifest, validateManifest } from "../core/publish-service.js";
 
 export default defineCommand({
   meta: {

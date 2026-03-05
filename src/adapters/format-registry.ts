@@ -10,9 +10,9 @@
 import type { ClientType } from "../clients/types.js";
 import type { SkillRule } from "../core/skill-types.js";
 import * as claudeCodeFormat from "./formats/claude-code-format.js";
+import * as codexFormat from "./formats/codex-format.js";
 import * as cursorFormat from "./formats/cursor-format.js";
 import * as rooCodeFormat from "./formats/roo-code-format.js";
-import * as codexFormat from "./formats/codex-format.js";
 import * as windsurfFormat from "./formats/windsurf-format.js";
 
 /** Common interface all format adapters satisfy */

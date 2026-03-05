@@ -17,7 +17,9 @@ export interface FormatOutput {
  */
 export function formatRules(rules: SkillRule[]): FormatOutput[] {
   return rules.map((rule) => {
-    const header = rule.description ? `# ${rule.name}\n\n${rule.description}\n\n` : `# ${rule.name}\n\n`;
+    const header = rule.description
+      ? `# ${rule.name}\n\n${rule.description}\n\n`
+      : `# ${rule.name}\n\n`;
     const content = [header, rule.content.trim(), ""].join("");
     return {
       filename: `.roo/rules/${rule.name}.md`,

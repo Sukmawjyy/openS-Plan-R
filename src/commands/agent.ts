@@ -4,18 +4,14 @@
  * Manages agent/mode definitions — syncs agent configs across supported tools.
  */
 
+import { writeFileSync } from "node:fs";
 import * as p from "@clack/prompts";
 import { defineCommand } from "citty";
-import { writeFileSync } from "node:fs";
 import pc from "picocolors";
-import {
-  exportAgents,
-  listAllInstalledAgents,
-  syncAgentsToClient,
-} from "../core/agent-service.js";
-import { getClientTypes } from "../core/completion-generator.js";
 import { clientSupportsAgents } from "../adapters/agent-format-registry.js";
 import type { ClientType } from "../clients/types.js";
+import { exportAgents, listAllInstalledAgents, syncAgentsToClient } from "../core/agent-service.js";
+import { getClientTypes } from "../core/completion-generator.js";
 
 // ── Sub-command: sync ──────────────────────────────────────────────────────
 
@@ -118,7 +114,10 @@ const listCommand = defineCommand({
 // ── Sub-command: export ────────────────────────────────────────────────────
 
 const exportCommand = defineCommand({
-  meta: { name: "export", description: "Export existing agent configs as universal AgentSpec JSON" },
+  meta: {
+    name: "export",
+    description: "Export existing agent configs as universal AgentSpec JSON",
+  },
   run() {
     p.intro(pc.cyan("mcpman agent export"));
 
@@ -137,7 +136,7 @@ const exportCommand = defineCommand({
 
     const outPath = `${cwd}/mcpman-agents.json`;
     try {
-      writeFileSync(outPath, JSON.stringify({ agents }, null, 2) + "\n", "utf8");
+      writeFileSync(outPath, `${JSON.stringify({ agents }, null, 2)}\n`, "utf8");
       console.log(`${pc.green("✓")} Written: ${pc.bold("mcpman-agents.json")}`);
     } catch (err) {
       console.error(`${pc.red("✗")} Failed to write: ${String(err)}`);

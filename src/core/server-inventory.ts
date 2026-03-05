@@ -20,12 +20,13 @@ export async function getInstalledServers(clientFilter?: string): Promise<Instal
   const serverMap = new Map<string, InstalledServer>();
 
   for (const client of filtered) {
-    let config: Record<string, ServerEntry> | undefined;
+    let config: { servers: Record<string, ServerEntry> } | undefined;
     try {
       config = await client.readConfig();
     } catch {
       continue; // skip clients with unreadable config
     }
+    if (!config) continue;
 
     for (const [name, entry] of Object.entries(config.servers)) {
       const existing = serverMap.get(name);

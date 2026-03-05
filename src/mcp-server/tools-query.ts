@@ -6,7 +6,7 @@
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { readLockfile } from "../core/lockfile.js";
 import { resolveFromNpm } from "../core/registry.js";
-import { textResult, errorResult } from "./tool-helpers.js";
+import { errorResult, textResult } from "./tool-helpers.js";
 
 // ── List ─────────────────────────────────────────────────────────────────────
 
@@ -35,7 +35,9 @@ export async function handleList(args: Record<string, unknown>): Promise<CallToo
 
     return textResult(`Installed MCP servers (${filtered.length}):\n\n${lines.join("\n")}`);
   } catch (err) {
-    return errorResult(`Error listing servers: ${err instanceof Error ? err.message : String(err)}`);
+    return errorResult(
+      `Error listing servers: ${err instanceof Error ? err.message : String(err)}`,
+    );
   }
 }
 
@@ -80,7 +82,9 @@ export async function handleInfo(args: Record<string, unknown>): Promise<CallToo
 
     return textResult(lines.join("\n"));
   } catch (err) {
-    return errorResult(`Error fetching info for '${name}': ${err instanceof Error ? err.message : String(err)}`);
+    return errorResult(
+      `Error fetching info for '${name}': ${err instanceof Error ? err.message : String(err)}`,
+    );
   }
 }
 
@@ -124,6 +128,8 @@ export async function handleStatus(_args: Record<string, unknown>): Promise<Call
 
     return textResult(lines.join("\n"));
   } catch (err) {
-    return errorResult(`Error fetching status: ${err instanceof Error ? err.message : String(err)}`);
+    return errorResult(
+      `Error fetching status: ${err instanceof Error ? err.message : String(err)}`,
+    );
   }
 }

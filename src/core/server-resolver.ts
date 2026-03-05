@@ -16,7 +16,10 @@ export interface ServerSource {
 
 // Detect source type from user input (checks built-ins then plugins)
 // Accepts an optional pre-loaded plugin list to avoid double loading.
-export function detectSource(input: string, plugins?: ReturnType<typeof loadAllPlugins>): ServerSource {
+export function detectSource(
+  input: string,
+  plugins?: ReturnType<typeof loadAllPlugins>,
+): ServerSource {
   if (input.startsWith("smithery:")) {
     return { type: "smithery", input: input.slice(9) };
   }

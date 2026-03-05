@@ -1,10 +1,7 @@
 // Registry search: npm, Smithery, mcpman, and plugin-based MCP package discovery
 
+import { type McpmanSearchResult, searchMcpmanRegistry } from "./mcpman-registry-client.js";
 import { type PluginSearchResult, loadAllPlugins } from "./plugin-loader.js";
-import {
-  type McpmanSearchResult,
-  searchMcpmanRegistry,
-} from "./mcpman-registry-client.js";
 
 export type { McpmanSearchResult };
 

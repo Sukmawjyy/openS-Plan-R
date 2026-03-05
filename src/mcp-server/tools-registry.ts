@@ -6,8 +6,8 @@
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { readLockfile, removeEntry } from "../core/lockfile.js";
 import { searchNpm, searchSmithery } from "../core/registry-search.js";
-import { resolveFromNpm, resolveFromSmithery, resolveFromGitHub } from "../core/registry.js";
-import { textResult, errorResult } from "./tool-helpers.js";
+import { resolveFromGitHub, resolveFromNpm, resolveFromSmithery } from "../core/registry.js";
+import { errorResult, textResult } from "./tool-helpers.js";
 
 /** Whether write operations are allowed (set via --allow-write on serve command) */
 let writeEnabled = false;
@@ -32,7 +32,9 @@ export async function handleInstall(args: Record<string, unknown>): Promise<Call
         `Remote server '${name}' noted at ${url}.\n` +
           `Use 'mcpman install ${name} --url ${url}' from the CLI to configure it for a client.`,
       );
-    } else if (name.startsWith("https://github.com/")) {
+    }
+
+    if (name.startsWith("https://github.com/")) {
       meta = await resolveFromGitHub(name);
     } else {
       try {
@@ -48,7 +50,7 @@ export async function handleInstall(args: Record<string, unknown>): Promise<Call
       `Command:  ${meta.command} ${meta.args.join(" ")}`,
       meta.description ? `Desc:     ${meta.description}` : null,
       "",
-      `Note: Entry resolved but not written to lockfile via MCP tool.`,
+      "Note: Entry resolved but not written to lockfile via MCP tool.",
       `Run 'mcpman install ${name}' from the CLI to fully install and configure for a client.`,
     ]
       .filter(Boolean)
@@ -56,7 +58,9 @@ export async function handleInstall(args: Record<string, unknown>): Promise<Call
 
     return textResult(summary);
   } catch (err) {
-    return errorResult(`Error resolving '${name}': ${err instanceof Error ? err.message : String(err)}`);
+    return errorResult(
+      `Error resolving '${name}': ${err instanceof Error ? err.message : String(err)}`,
+    );
   }
 }
 
@@ -80,7 +84,9 @@ export async function handleRemove(args: Record<string, unknown>): Promise<CallT
     removeEntry(name);
     return textResult(`Server '${name}' removed from lockfile.`);
   } catch (err) {
-    return errorResult(`Error removing '${name}': ${err instanceof Error ? err.message : String(err)}`);
+    return errorResult(
+      `Error removing '${name}': ${err instanceof Error ? err.message : String(err)}`,
+    );
   }
 }
 

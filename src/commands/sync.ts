@@ -32,7 +32,6 @@ const VALID_CLIENTS: ClientType[] = [
   "zed",
 ];
 
-
 export default defineCommand({
   meta: {
     name: "sync",
@@ -208,4 +207,3 @@ function formatAction(action: "add" | "extra" | "remove" | "ok"): [string, strin
       return [pc.dim("·"), pc.dim("in sync")];
   }
 }
-

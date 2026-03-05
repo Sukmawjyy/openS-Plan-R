@@ -7,23 +7,10 @@
 
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import {
-  CallToolRequestSchema,
-  ListToolsRequestSchema,
-} from "@modelcontextprotocol/sdk/types.js";
+import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { APP_VERSION } from "../utils/constants.js";
 import { errorResult } from "./tool-helpers.js";
-import {
-  auditSchema,
-  doctorSchema,
-  infoSchema,
-  installSchema,
-  listSchema,
-  removeSchema,
-  searchSchema,
-  statusSchema,
-} from "./types.js";
 import {
   handleAudit,
   handleDoctor,
@@ -34,12 +21,23 @@ import {
   handleSearch,
   handleStatus,
 } from "./tools.js";
+import {
+  auditSchema,
+  doctorSchema,
+  infoSchema,
+  installSchema,
+  listSchema,
+  removeSchema,
+  searchSchema,
+  statusSchema,
+} from "./types.js";
 
 /** All tool definitions exposed by this MCP server */
 const TOOL_DEFINITIONS = [
   {
     name: "mcpman_install",
-    description: "Resolve MCP server metadata from npm, Smithery, or GitHub. Returns info but does not write to lockfile — use CLI for full install.",
+    description:
+      "Resolve MCP server metadata from npm, Smithery, or GitHub. Returns info but does not write to lockfile — use CLI for full install.",
     inputSchema: installSchema,
   },
   {
@@ -59,17 +57,20 @@ const TOOL_DEFINITIONS = [
   },
   {
     name: "mcpman_audit",
-    description: "Run a security audit on installed MCP servers. Returns risk scores and vulnerabilities.",
+    description:
+      "Run a security audit on installed MCP servers. Returns risk scores and vulnerabilities.",
     inputSchema: auditSchema,
   },
   {
     name: "mcpman_doctor",
-    description: "Run health diagnostics on installed MCP servers (runtime, spawn, handshake checks).",
+    description:
+      "Run health diagnostics on installed MCP servers (runtime, spawn, handshake checks).",
     inputSchema: doctorSchema,
   },
   {
     name: "mcpman_info",
-    description: "Get detailed information about a specific MCP server (version, source, clients, command).",
+    description:
+      "Get detailed information about a specific MCP server (version, source, clients, command).",
     inputSchema: infoSchema,
   },
   {
@@ -97,14 +98,22 @@ function createServer(): Server {
     const safeArgs = args as Record<string, unknown>;
 
     switch (name) {
-      case "mcpman_install": return handleInstall(safeArgs);
-      case "mcpman_remove":  return handleRemove(safeArgs);
-      case "mcpman_list":    return handleList(safeArgs);
-      case "mcpman_search":  return handleSearch(safeArgs);
-      case "mcpman_audit":   return handleAudit(safeArgs);
-      case "mcpman_doctor":  return handleDoctor(safeArgs);
-      case "mcpman_info":    return handleInfo(safeArgs);
-      case "mcpman_status":  return handleStatus(safeArgs);
+      case "mcpman_install":
+        return handleInstall(safeArgs);
+      case "mcpman_remove":
+        return handleRemove(safeArgs);
+      case "mcpman_list":
+        return handleList(safeArgs);
+      case "mcpman_search":
+        return handleSearch(safeArgs);
+      case "mcpman_audit":
+        return handleAudit(safeArgs);
+      case "mcpman_doctor":
+        return handleDoctor(safeArgs);
+      case "mcpman_info":
+        return handleInfo(safeArgs);
+      case "mcpman_status":
+        return handleStatus(safeArgs);
       default:
         return errorResult(`Unknown tool: ${name}`);
     }
