@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- mcpman v1.0.0 landing page -->
+<!-- mcpman v2.0.0 landing page -->
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>mcpman — The package manager for MCP servers</title>
-  <meta name="description" content="Install, manage, and inspect Model Context Protocol servers across Claude Desktop, Cursor, VS Code, and Windsurf — from a single CLI." />
+  <meta name="description" content="Install, manage, and inspect Model Context Protocol servers across 10 AI clients — Claude Desktop, Cursor, VS Code, Windsurf, Claude Code, Roo Code, Codex CLI, OpenCode, Continue, and Zed — from a single CLI." />
   <meta property="og:title" content="mcpman — The package manager for MCP servers" />
-  <meta property="og:description" content="38 commands. 4 AI clients. One CLI." />
+  <meta property="og:description" content="44 commands. 10 AI clients. One CLI." />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,7 +25,7 @@
         <a href="#quickstart">Quick Start</a>
         <a href="#commands">Commands</a>
         <a href="#compare">Compare</a>
-        <a class="btn btn-ghost" href="https://github.com/tranhoangtu-it/mcpman" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn-ghost" href="https://github.com/tranhoangtu-it/openS-Plan-R" target="_blank" rel="noopener">GitHub</a>
       </div>
     </div>
   </nav>
@@ -33,12 +33,12 @@
   <!-- HERO -->
   <section class="hero" id="hero">
     <div class="hero-inner">
-      <div class="badge">v1.0.0 · MIT License · Node &ge; 20</div>
+      <div class="badge">v2.0.0 · MIT License · Node &ge; 20</div>
       <h1 class="hero-title">mcpman</h1>
       <p class="hero-tagline">The package manager for MCP servers.</p>
       <p class="hero-desc">
         Install, manage, and inspect Model Context Protocol servers across all your AI clients —
-        Claude Desktop, Cursor, VS Code, and Windsurf — from a single CLI.
+        Claude Desktop, Claude Code, Cursor, VS Code, Windsurf, Roo Code, Codex CLI, OpenCode, Continue, and Zed — from a single CLI.
       </p>
 
       <div class="install-block">
@@ -54,7 +54,7 @@
 
       <div class="hero-cta">
         <a href="#quickstart" class="btn btn-primary">Get Started</a>
-        <a href="https://github.com/tranhoangtu-it/mcpman" target="_blank" rel="noopener" class="btn btn-outline">
+        <a href="https://github.com/tranhoangtu-it/openS-Plan-R" target="_blank" rel="noopener" class="btn btn-outline">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/></svg>
           GitHub
         </a>
@@ -62,17 +62,17 @@
 
       <div class="hero-stats">
         <div class="stat">
-          <span class="stat-num">38</span>
+          <span class="stat-num">44</span>
           <span class="stat-label">Commands</span>
         </div>
         <div class="stat-sep"></div>
         <div class="stat">
-          <span class="stat-num">4</span>
+          <span class="stat-num">10</span>
           <span class="stat-label">AI Clients</span>
         </div>
         <div class="stat-sep"></div>
         <div class="stat">
-          <span class="stat-num">457+</span>
+          <span class="stat-num">1,123</span>
           <span class="stat-label">Tests</span>
         </div>
         <div class="stat-sep"></div>
@@ -95,14 +95,26 @@
 
         <div class="feature-card">
           <div class="feature-icon">🔌</div>
-          <h3>Universal Client Support</h3>
-          <p>Manage servers for Claude Desktop, Cursor, VS Code, and Windsurf from one unified tool. No context switching.</p>
+          <h3>10 AI Clients</h3>
+          <p>Claude Desktop, Claude Code, Cursor, VS Code, Windsurf, Roo Code, Codex CLI, OpenCode, Continue, and Zed — all from one tool.</p>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon">📦</div>
-          <h3>Registry-Aware</h3>
-          <p>Resolves packages from npm, Smithery, GitHub URLs, or custom registries. Lockfile tracks everything reproducibly.</p>
+          <h3>Registry &amp; Publish</h3>
+          <p>Resolves from npm, Smithery, GitHub, or the mcpman registry. Publish your own servers with <code>mcpman publish</code>.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3>MCP Server Mode</h3>
+          <p>Run mcpman itself as an MCP server with <code>mcpman serve</code>. AI agents can install, audit, and manage servers programmatically.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <h3>Remote Transport</h3>
+          <p>Connect to remote MCP servers over HTTP and SSE. No local process needed — just a URL.</p>
         </div>
 
         <div class="feature-card">
@@ -113,8 +125,8 @@
 
         <div class="feature-card">
           <div class="feature-icon">🔄</div>
-          <h3>Config Sync</h3>
-          <p>Keep server configs consistent across all AI clients. Diff before syncing. Use <code>--remove</code> to clean extras.</p>
+          <h3>Skills &amp; Agent Sync</h3>
+          <p>Universal skill spec with format adapters for all 10 clients. Sync agent configs, tools, and rules across editors.</p>
         </div>
 
         <div class="feature-card">
@@ -124,9 +136,15 @@
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">🧩</div>
-          <h3>Plugin System</h3>
-          <p>Extend mcpman with npm-based plugins. Add custom registries like Ollama or HuggingFace with a prefix-based resolver.</p>
+          <div class="feature-icon">📊</div>
+          <h3>Embedded Dashboard</h3>
+          <p>Launch a local dashboard with <code>mcpman dashboard</code>. REST API with server status, audit results, and health checks.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">👥</div>
+          <h3>Team Collaboration</h3>
+          <p>Share server configs with your team via <code>mcpman team</code>. RBAC roles, shared vault, and full audit logging.</p>
         </div>
 
         <div class="feature-card">
@@ -136,9 +154,9 @@
         </div>
 
         <div class="feature-card">
-          <div class="feature-icon">🐚</div>
-          <h3>Shell Completions</h3>
-          <p>Tab-complete commands and server names in bash, zsh, and fish. Server names resolved dynamically from lockfile.</p>
+          <div class="feature-icon">🧩</div>
+          <h3>Plugin System</h3>
+          <p>Extend mcpman with npm-based plugins. Add custom registries like Ollama or HuggingFace with a prefix-based resolver.</p>
         </div>
 
         <div class="feature-card">
@@ -223,7 +241,7 @@
   <section class="section" id="commands">
     <div class="container">
       <div class="section-header">
-        <h2>38 Commands. One Tool.</h2>
+        <h2>44 Commands. One Tool.</h2>
         <p>A complete CLI for every stage of the MCP server lifecycle.</p>
       </div>
       <div class="commands-grid">
@@ -277,9 +295,10 @@
             <span>Discovery</span>
           </div>
           <ul class="cmd-list">
-            <li><code>search</code> <span>npm + Smithery search</span></li>
+            <li><code>search</code> <span>npm + Smithery + mcpman search</span></li>
             <li><code>info</code> <span>Package details</span></li>
             <li><code>why</code> <span>Server provenance</span></li>
+            <li><code>publish</code> <span>Publish to registry</span></li>
           </ul>
         </div>
 
@@ -347,6 +366,20 @@
           </ul>
         </div>
 
+        <div class="cmd-group">
+          <div class="cmd-group-header">
+            <span class="cmd-group-icon">🤖</span>
+            <span>Platform</span>
+          </div>
+          <ul class="cmd-list">
+            <li><code>serve</code> <span>Run as MCP server</span></li>
+            <li><code>dashboard</code> <span>Embedded HTTP dashboard</span></li>
+            <li><code>team</code> <span>Team collaboration</span></li>
+            <li><code>skill</code> <span>Skills management</span></li>
+            <li><code>agent</code> <span>Agent config sync</span></li>
+          </ul>
+        </div>
+
       </div>
     </div>
   </section>
@@ -371,7 +404,7 @@
           <tbody>
             <tr>
               <td>Multi-client support</td>
-              <td class="highlight-col"><span class="check">All 4 clients</span></td>
+              <td class="highlight-col"><span class="check">All 10 clients</span></td>
               <td><span class="partial">Claude only</span></td>
               <td><span class="partial">Limited</span></td>
             </tr>
@@ -447,6 +480,30 @@
               <td><span class="cross">None</span></td>
               <td><span class="cross">None</span></td>
             </tr>
+            <tr>
+              <td>MCP server mode</td>
+              <td class="highlight-col"><span class="check">8 tools via stdio</span></td>
+              <td><span class="cross">None</span></td>
+              <td><span class="cross">None</span></td>
+            </tr>
+            <tr>
+              <td>Remote transport</td>
+              <td class="highlight-col"><span class="check">HTTP + SSE</span></td>
+              <td><span class="cross">None</span></td>
+              <td><span class="cross">None</span></td>
+            </tr>
+            <tr>
+              <td>Dashboard</td>
+              <td class="highlight-col"><span class="check">REST API + UI</span></td>
+              <td><span class="cross">None</span></td>
+              <td><span class="cross">None</span></td>
+            </tr>
+            <tr>
+              <td>Team collaboration</td>
+              <td class="highlight-col"><span class="check">RBAC + audit log</span></td>
+              <td><span class="cross">None</span></td>
+              <td><span class="cross">None</span></td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -482,7 +539,7 @@
         </div>
       </div>
       <div class="banner-cta">
-        <a href="https://github.com/tranhoangtu-it/mcpman" target="_blank" rel="noopener" class="btn btn-primary">View on GitHub</a>
+        <a href="https://github.com/tranhoangtu-it/openS-Plan-R" target="_blank" rel="noopener" class="btn btn-primary">View on GitHub</a>
         <a href="https://www.npmjs.com/package/mcpman" target="_blank" rel="noopener" class="btn btn-outline">npm Package</a>
       </div>
     </div>
@@ -501,11 +558,11 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M0 7.334v8h6.545v1.332H12v-1.332h12v-8H0zm6.545 6.664H5.213V8.667H3.88v5.331H1.334V8.667h5.211zm4.122 0V8.667h1.333v5.331h-1.333zm1.334-2.662v-1.334H12v1.334h-.545zm1.877 2.662V8.667h4.667v5.331h-4.667z"/></svg>
             npm
           </a>
-          <a href="https://github.com/tranhoangtu-it/mcpman" target="_blank" rel="noopener">
+          <a href="https://github.com/tranhoangtu-it/openS-Plan-R" target="_blank" rel="noopener">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z"/></svg>
             GitHub
           </a>
-          <a href="https://github.com/tranhoangtu-it/mcpman/blob/main/LICENSE" target="_blank" rel="noopener">
+          <a href="https://github.com/tranhoangtu-it/openS-Plan-R/blob/main/LICENSE" target="_blank" rel="noopener">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
             MIT License
           </a>
