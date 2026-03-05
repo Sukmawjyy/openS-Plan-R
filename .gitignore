@@ -1,5 +1,8 @@
 node_modules/
 dist/
+coverage/
+.claude/session-state/
+.claude/agent-memory/
 .env
 *.tgz
 *.log
