@@ -1,6 +1,6 @@
 {
   "name": "mcpman",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "The package manager for MCP servers",
   "type": "module",
   "bin": {
@@ -9,7 +9,9 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -23,17 +25,26 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "keywords": ["mcp", "model-context-protocol", "cli", "server-manager"],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "cli",
+    "server-manager"
+  ],
   "license": "MIT",
   "dependencies": {
     "@clack/prompts": "^0.9.1",
+    "@iarna/toml": "^2.2.5",
+    "@modelcontextprotocol/sdk": "^1.27.1",
     "citty": "^0.1.6",
     "nanospinner": "^1.2.2",
-    "picocolors": "^1.1.1"
+    "picocolors": "^1.1.1",
+    "yaml": "^2.8.2"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@types/node": "^22.10.0",
+    "@vitest/coverage-v8": "^4.0.18",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2",
     "vitest": "^4.0.18"

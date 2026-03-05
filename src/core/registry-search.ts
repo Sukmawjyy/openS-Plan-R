@@ -1,6 +1,12 @@
-// Registry search: npm, Smithery, and plugin-based MCP package discovery
+// Registry search: npm, Smithery, mcpman, and plugin-based MCP package discovery
 
 import { type PluginSearchResult, loadAllPlugins } from "./plugin-loader.js";
+import {
+  type McpmanSearchResult,
+  searchMcpmanRegistry,
+} from "./mcpman-registry-client.js";
+
+export type { McpmanSearchResult };
 
 export interface NpmSearchResult {
   name: string;
@@ -77,6 +83,11 @@ export async function searchSmithery(query: string, limit = 20): Promise<Smither
   } catch {
     return [];
   }
+}
+
+/** Search mcpman registry. Delegates to mcpman-registry-client. Returns [] on failure. */
+export async function searchMcpman(query: string, limit = 20): Promise<McpmanSearchResult[]> {
+  return searchMcpmanRegistry(query, limit);
 }
 
 // Re-export PluginSearchResult for consumers

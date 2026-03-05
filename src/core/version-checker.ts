@@ -3,7 +3,7 @@ import { isPinned } from "./pin-service.js";
 
 export interface UpdateInfo {
   server: string;
-  source: "npm" | "smithery" | "github";
+  source: "npm" | "smithery" | "github" | "local" | "mcpman";
   currentVersion: string;
   latestVersion: string;
   hasUpdate: boolean;

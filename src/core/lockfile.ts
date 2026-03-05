@@ -8,7 +8,7 @@ export const LOCKFILE_NAME = "mcpman.lock";
 
 export interface LockEntry {
   version: string;
-  source: "npm" | "smithery" | "github" | "local";
+  source: "npm" | "smithery" | "github" | "local" | "mcpman";
   resolved: string;
   integrity: string;
   runtime: "node" | "python" | "docker";
@@ -17,6 +17,9 @@ export interface LockEntry {
   envVars: string[];
   installedAt: string;
   clients: ClientType[];
+  // Remote transport fields (optional)
+  transport?: "stdio" | "http" | "sse";
+  url?: string;
 }
 
 export interface LockfileData {

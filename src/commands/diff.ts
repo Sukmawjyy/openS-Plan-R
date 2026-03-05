@@ -10,13 +10,30 @@ import pc from "picocolors";
 import type { ClientType } from "../clients/types.js";
 import { diffClientConfigs, loadClientConfig } from "../core/config-differ.js";
 
-const VALID_CLIENTS: ClientType[] = ["claude-desktop", "cursor", "vscode", "windsurf"];
+const VALID_CLIENTS: ClientType[] = [
+  "claude-desktop",
+  "cursor",
+  "vscode",
+  "windsurf",
+  "claude-code",
+  "roo-code",
+  "codex-cli",
+  "opencode",
+  "continue",
+  "zed",
+];
 
 const CLIENT_DISPLAY: Record<ClientType, string> = {
   "claude-desktop": "Claude Desktop",
   cursor: "Cursor",
   vscode: "VS Code",
   windsurf: "Windsurf",
+  "claude-code": "Claude Code",
+  "roo-code": "Roo Code",
+  "codex-cli": "Codex CLI",
+  opencode: "OpenCode",
+  continue: "Continue",
+  zed: "Zed",
 };
 
 export default defineCommand({

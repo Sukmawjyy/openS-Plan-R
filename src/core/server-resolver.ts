@@ -2,6 +2,7 @@ import { loadAllPlugins } from "./plugin-loader.js";
 import {
   type ServerMetadata,
   resolveFromGitHub,
+  resolveFromMcpman,
   resolveFromNpm,
   resolveFromSmithery,
 } from "./registry.js";
@@ -17,6 +18,9 @@ export interface ServerSource {
 export function detectSource(input: string): ServerSource {
   if (input.startsWith("smithery:")) {
     return { type: "smithery", input: input.slice(9) };
+  }
+  if (input.startsWith("mcpman:")) {
+    return { type: "mcpman", input: input.slice(7) };
   }
   if (input.startsWith("https://github.com/") || input.startsWith("github.com/")) {
     return { type: "github", input: input };
@@ -53,6 +57,8 @@ export async function resolveServer(input: string): Promise<ServerMetadata> {
   switch (source.type) {
     case "smithery":
       return resolveFromSmithery(source.input);
+    case "mcpman":
+      return resolveFromMcpman(source.input);
     case "github":
       return resolveFromGitHub(source.input);
     case "npm":

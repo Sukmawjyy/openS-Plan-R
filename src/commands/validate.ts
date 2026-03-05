@@ -31,7 +31,8 @@ export default defineCommand({
   args: {
     client: {
       type: "string",
-      description: "Validate a specific client config (claude-desktop, cursor, vscode, windsurf)",
+      description:
+        "Validate a specific client config (claude-desktop, cursor, vscode, windsurf, claude-code, roo-code, codex-cli, opencode, continue, zed)",
     },
     json: {
       type: "boolean",

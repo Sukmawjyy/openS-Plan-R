@@ -74,10 +74,13 @@ export default defineCommand({
     for (const s of withStatus) {
       const icon = STATUS_ICON[s.status];
       const clientsStr = formatClients(s.clients);
-      const cmdStr = truncate(
-        `${s.config.command}${s.config.args ? ` ${s.config.args.join(" ")}` : ""}`,
-        20,
-      );
+      const isRemote = s.config.type === "http" || s.config.type === "sse";
+      const cmdStr = isRemote
+        ? truncate(`[${s.config.type}] ${s.config.url ?? ""}`, 20)
+        : truncate(
+            `${s.config.command ?? ""}${s.config.args ? ` ${s.config.args.join(" ")}` : ""}`,
+            20,
+          );
       console.log(
         `  ${pad(s.name, nameWidth)}  ${pad(clientsStr, clientsWidth)}  ${pad(cmdStr, 20)}  ${icon} ${s.status}`,
       );
@@ -105,6 +108,12 @@ const CLIENT_DISPLAY: Record<string, string> = {
   cursor: "Cursor",
   vscode: "VS Code",
   windsurf: "Windsurf",
+  "claude-code": "Claude Code",
+  "roo-code": "Roo Code",
+  "codex-cli": "Codex CLI",
+  opencode: "OpenCode",
+  continue: "Continue",
+  zed: "Zed",
 };
 
 function formatClients(clients: string[]): string {

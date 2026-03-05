@@ -110,5 +110,38 @@ export function resolveConfigPath(client: ClientType): string {
         return path.join(appData, "Code", "User", "settings.json");
       }
       return path.join(home, ".config", "Code", "User", "settings.json");
+
+    case "claude-code":
+      // Claude Code CLI uses ~/.claude/.mcp.json (user-level global)
+      return path.join(home, ".claude", ".mcp.json");
+
+    case "roo-code":
+      // Roo Code stores MCP config in VS Code extension globalStorage
+      // appData already resolves per-platform via getAppDataDir()
+      return path.join(
+        appData,
+        "Code",
+        "User",
+        "globalStorage",
+        "rooveterinaryinc.roo-cline",
+        "settings",
+        "mcp_settings.json",
+      );
+
+    case "codex-cli":
+      // OpenAI Codex CLI uses ~/.codex/config.toml
+      return path.join(home, ".codex", "config.toml");
+
+    case "opencode":
+      // OpenCode uses ~/.config/opencode/opencode.json
+      return path.join(home, ".config", "opencode", "opencode.json");
+
+    case "continue":
+      // Continue uses ~/.continue/config.yaml
+      return path.join(home, ".continue", "config.yaml");
+
+    case "zed":
+      // Zed uses ~/.config/zed/settings.json
+      return path.join(home, ".config", "zed", "settings.json");
   }
 }

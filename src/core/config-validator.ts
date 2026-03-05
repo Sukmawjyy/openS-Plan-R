@@ -18,6 +18,7 @@ export interface ValidationResult {
 
 const REQUIRED_LOCK_FIELDS: (keyof LockEntry)[] = ["version", "source", "command", "args"];
 const VALID_SOURCES = ["npm", "smithery", "github", "local"] as const;
+const VALID_TRANSPORTS = ["stdio", "http", "sse"] as const;
 
 /** Validate lockfile JSON schema at given path (defaults to resolved path) */
 export function validateLockfile(filePath?: string): ValidationResult {
@@ -68,6 +69,12 @@ export function validateLockfile(filePath?: string): ValidationResult {
     if (!Array.isArray(e.args)) {
       errors.push(`servers.${name}: args must be an array`);
     }
+    if (
+      e.transport &&
+      !VALID_TRANSPORTS.includes(e.transport as (typeof VALID_TRANSPORTS)[number])
+    ) {
+      errors.push(`servers.${name}: invalid transport "${e.transport}"`);
+    }
   }
 
   return { file: target, valid: errors.length === 0, errors };
@@ -75,7 +82,20 @@ export function validateLockfile(filePath?: string): ValidationResult {
 
 // ── Client config validation ───────────────────────────────────────────────────
 
-type KnownClient = "claude-desktop" | "cursor" | "vscode" | "windsurf";
+type KnownClient =
+  | "claude-desktop"
+  | "cursor"
+  | "vscode"
+  | "windsurf"
+  | "claude-code"
+  | "roo-code"
+  | "codex-cli"
+  | "opencode"
+  | "continue"
+  | "zed";
+
+// Clients whose config is not JSON — skip JSON-based validation
+const NON_JSON_CLIENTS: ReadonlySet<string> = new Set(["codex-cli", "continue"]);
 
 /** Validate a client's MCP config JSON. Checks mcpServers entries have command+args. */
 export function validateClientConfig(clientName: string): ValidationResult {
@@ -84,6 +104,14 @@ export function validateClientConfig(clientName: string): ValidationResult {
     filePath = resolveConfigPath(clientName as KnownClient);
   } catch {
     return { file: clientName, valid: false, errors: [`Unknown client: ${clientName}`] };
+  }
+
+  // TOML/YAML configs can't be validated with JSON.parse — skip
+  if (NON_JSON_CLIENTS.has(clientName)) {
+    if (!fs.existsSync(filePath)) {
+      return { file: filePath, valid: false, errors: ["Config file not found"] };
+    }
+    return { file: filePath, valid: true, errors: [] };
   }
 
   const errors: string[] = [];
@@ -126,11 +154,18 @@ export function validateClientConfig(clientName: string): ValidationResult {
       continue;
     }
     const e = entry as Record<string, unknown>;
-    if (!("command" in e) || typeof e.command !== "string") {
-      errors.push(`mcpServers.${name}: missing or invalid "command"`);
-    }
-    if (!("args" in e) || !Array.isArray(e.args)) {
-      errors.push(`mcpServers.${name}: missing or invalid "args" (must be array)`);
+    const isRemote = e.type === "http" || e.type === "sse" || typeof e.url === "string";
+    if (isRemote) {
+      if (!e.url || typeof e.url !== "string") {
+        errors.push(`mcpServers.${name}: remote entry missing "url"`);
+      }
+    } else {
+      if (!("command" in e) || typeof e.command !== "string") {
+        errors.push(`mcpServers.${name}: missing or invalid "command"`);
+      }
+      if (!("args" in e) || !Array.isArray(e.args)) {
+        errors.push(`mcpServers.${name}: missing or invalid "args" (must be array)`);
+      }
     }
   }
 
@@ -140,7 +175,18 @@ export function validateClientConfig(clientName: string): ValidationResult {
 /** Validate both lockfile and all detected client configs */
 export function validateAll(lockfilePath?: string): ValidationResult[] {
   const results: ValidationResult[] = [validateLockfile(lockfilePath)];
-  const clients: KnownClient[] = ["claude-desktop", "cursor", "vscode", "windsurf"];
+  const clients: KnownClient[] = [
+    "claude-desktop",
+    "cursor",
+    "vscode",
+    "windsurf",
+    "claude-code",
+    "roo-code",
+    "codex-cli",
+    "opencode",
+    "continue",
+    "zed",
+  ];
   for (const client of clients) {
     const r = validateClientConfig(client);
     // Only include if file exists (skip missing client configs)

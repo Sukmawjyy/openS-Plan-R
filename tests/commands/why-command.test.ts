@@ -82,16 +82,22 @@ describe("getServerProvenance — found in lockfile", () => {
     expect(result!.orphaned).toBe(false);
   });
 
-  it("includes all four client types in status list", async () => {
+  it("includes all ten client types in status list", async () => {
     writeLock({ "my-server": baseEntry });
     const result = await getServerProvenance("my-server", lockfilePath, profilesDir);
 
-    expect(result!.clients).toHaveLength(4);
+    expect(result!.clients).toHaveLength(10);
     const types = result!.clients.map((c) => c.type);
     expect(types).toContain("claude-desktop");
     expect(types).toContain("cursor");
     expect(types).toContain("vscode");
     expect(types).toContain("windsurf");
+    expect(types).toContain("claude-code");
+    expect(types).toContain("roo-code");
+    expect(types).toContain("codex-cli");
+    expect(types).toContain("opencode");
+    expect(types).toContain("continue");
+    expect(types).toContain("zed");
   });
 
   it("marks lockfile clients as registered", async () => {

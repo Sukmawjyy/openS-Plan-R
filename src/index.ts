@@ -1,5 +1,7 @@
 import { defineCommand, runMain } from "citty";
+import agent from "./commands/agent.js";
 import alias from "./commands/alias.js";
+import dashboard from "./commands/dashboard.js";
 import audit from "./commands/audit.js";
 import bench from "./commands/bench.js";
 import completions from "./commands/completions.js";
@@ -19,6 +21,7 @@ import list from "./commands/list.js";
 import logs from "./commands/logs.js";
 import notify from "./commands/notify.js";
 import pin from "./commands/pin.js";
+import publish from "./commands/publish.js";
 import plugin from "./commands/plugin.js";
 import profiles from "./commands/profiles.js";
 import registry from "./commands/registry.js";
@@ -27,9 +30,12 @@ import replay from "./commands/replay.js";
 import rollback from "./commands/rollback.js";
 import run from "./commands/run.js";
 import search from "./commands/search.js";
+import serve from "./commands/serve.js";
 import secrets from "./commands/secrets.js";
+import skill from "./commands/skill.js";
 import status from "./commands/status.js";
 import sync from "./commands/sync.js";
+import team from "./commands/team.js";
 import template from "./commands/template.js";
 import testCmd from "./commands/test-command.js";
 import update from "./commands/update.js";
@@ -51,12 +57,14 @@ const main = defineCommand({
     description: APP_DESCRIPTION,
   },
   subCommands: {
+    agent,
     install,
     list,
     remove,
     doctor,
     init,
     secrets,
+    skill,
     sync,
     audit,
     update,
@@ -89,6 +97,10 @@ const main = defineCommand({
     alias,
     template,
     notify,
+    serve,
+    dashboard,
+    publish,
+    team,
   },
 });
 

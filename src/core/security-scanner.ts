@@ -19,7 +19,7 @@ export interface PackageMetadata {
 
 export interface SecurityReport {
   server: string;
-  source: "npm" | "smithery" | "github";
+  source: "npm" | "smithery" | "github" | "local" | "mcpman";
   score: number | null;
   riskLevel: "LOW" | "MEDIUM" | "HIGH" | "CRITICAL" | "UNKNOWN";
   vulnerabilities: VulnInfo[];

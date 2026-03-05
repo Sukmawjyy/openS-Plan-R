@@ -1,9 +1,26 @@
-export type ClientType = "claude-desktop" | "cursor" | "vscode" | "windsurf";
+export type ClientType =
+  | "claude-desktop"
+  | "cursor"
+  | "vscode"
+  | "windsurf"
+  | "claude-code"
+  | "roo-code"
+  | "codex-cli"
+  | "opencode"
+  | "continue"
+  | "zed";
+
+export type TransportType = "stdio" | "http" | "sse";
 
 export interface ServerEntry {
-  command: string;
+  // stdio transport (default)
+  command?: string;
   args?: string[];
   env?: Record<string, string>;
+  // remote transport (http / sse)
+  type?: TransportType;
+  url?: string;
+  headers?: Record<string, string>;
 }
 
 export interface ClientConfig {

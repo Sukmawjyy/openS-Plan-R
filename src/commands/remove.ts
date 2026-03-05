@@ -10,6 +10,12 @@ const CLIENT_DISPLAY: Record<string, string> = {
   cursor: "Cursor",
   vscode: "VS Code",
   windsurf: "Windsurf",
+  "claude-code": "Claude Code",
+  "roo-code": "Roo Code",
+  "codex-cli": "Codex CLI",
+  opencode: "OpenCode",
+  continue: "Continue",
+  zed: "Zed",
 };
 
 function clientDisplayName(type: string): string {

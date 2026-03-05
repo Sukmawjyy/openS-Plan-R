@@ -33,8 +33,8 @@ afterEach(() => {
 // ── Version ────────────────────────────────────────────────────────────────────
 
 describe("version", () => {
-  it("APP_VERSION is 1.0.0", () => {
-    expect(APP_VERSION).toBe("1.0.0");
+  it("APP_VERSION is 2.0.0", () => {
+    expect(APP_VERSION).toBe("2.0.0");
   });
 });
 
@@ -103,9 +103,9 @@ describe("registry CRUD roundtrip", () => {
 // ── completions --list-commands ────────────────────────────────────────────────
 
 describe("completions list", () => {
-  it("--list-commands includes all 32 commands", () => {
+  it("--list-commands includes all commands", () => {
     const cmds = getCommandList();
-    expect(cmds).toHaveLength(32);
+    expect(cmds).toHaveLength(44);
 
     // All v0.7 commands present
     const v07 = ["create", "link", "watch", "registry", "completions", "why"];

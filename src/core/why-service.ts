@@ -31,7 +31,18 @@ export interface WhyResult {
   orphaned: boolean;
 }
 
-const ALL_CLIENT_TYPES: ClientType[] = ["claude-desktop", "cursor", "vscode", "windsurf"];
+const ALL_CLIENT_TYPES: ClientType[] = [
+  "claude-desktop",
+  "cursor",
+  "vscode",
+  "windsurf",
+  "claude-code",
+  "roo-code",
+  "codex-cli",
+  "opencode",
+  "continue",
+  "zed",
+];
 
 /**
  * Collect full provenance for a server name.

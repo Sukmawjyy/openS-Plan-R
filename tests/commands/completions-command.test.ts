@@ -57,9 +57,9 @@ afterEach(() => {
 // ── getCommandList ─────────────────────────────────────────────────────────────
 
 describe("getCommandList", () => {
-  it("returns all 32 subcommands", () => {
+  it("returns all subcommands", () => {
     const cmds = getCommandList();
-    expect(cmds.length).toBe(32);
+    expect(cmds.length).toBe(44);
   });
 
   it("includes all v0.8 new commands", () => {

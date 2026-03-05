@@ -23,6 +23,14 @@ export interface SyncAction {
  * We emit empty strings as placeholders; the user must supply values.
  */
 export function reconstructServerEntry(lockEntry: LockEntry): ServerEntry {
+  // Remote transport: use url instead of command
+  if (lockEntry.transport === "http" || lockEntry.transport === "sse") {
+    return {
+      type: lockEntry.transport,
+      url: lockEntry.url ?? lockEntry.resolved,
+    };
+  }
+
   const entry: ServerEntry = {
     command: lockEntry.command,
   };

@@ -6,7 +6,7 @@
 
 ## Executive Summary
 
-**mcpman** is a universal CLI package manager for Model Context Protocol (MCP) servers. It solves the fragmentation problem of managing MCP servers across multiple AI clients (Claude Desktop, Cursor, VS Code, Windsurf) by providing a single, unified interface for installation, configuration, security auditing, and lifecycle management.
+**mcpman** is a universal CLI package manager for Model Context Protocol (MCP) servers. It solves the fragmentation problem of managing MCP servers across multiple AI clients (Claude Desktop, Cursor, VS Code, Windsurf, Claude Code CLI, Roo Code, Codex CLI, OpenCode, Continue, Zed) by providing a single, unified interface for installation, configuration, security auditing, and lifecycle management.
 
 **Key Differentiator:** Only tool combining multi-client support + lockfile + vault + security audit + plugin extensibility + config portability + developer tooling in a single CLI.
 
@@ -98,7 +98,7 @@
 | NFR-3 | Reliability | 457 tests, CI/CD, graceful error handling | Zero data loss on vault/lockfile |
 | NFR-4 | Usability | @clack/prompts, colored output, --json, --help | First install in <2min |
 | NFR-5 | Extensibility | npm plugin system, no hardcoded registries | Custom registries via plugins |
-| NFR-6 | Compatibility | Node ≥20, tested macOS/Windows/Linux | All 4 major AI clients |
+| NFR-6 | Compatibility | Node ≥20, tested macOS/Windows/Linux | All 10 major AI clients |
 
 ### Success Metrics (v1.0.0)
 
@@ -106,8 +106,8 @@
 |--------|--------------|-------------|--------|
 | CLI commands | 20 | 38 | 38 achieved |
 | Test coverage | 325 tests | 400+ tests | 457 tests |
-| Supported clients | 4 | 4 | 4 |
-| Source files | ~50 | 90+ | 92 |
+| Supported clients | 4 | 6 | 10 |
+| Source files | ~50 | 90+ | 94 |
 | npm downloads/week | 200+ | 1,000+ | Growing |
 | GitHub stars | 80+ | 500+ | Growing |
 | Production uptime | Stable | 99%+ | Stable |
@@ -116,7 +116,7 @@
 
 ```
 mcpman CLI (38 commands)
-  ├── src/clients/     (7 files) — Claude Desktop, Cursor, VS Code, Windsurf
+  ├── src/clients/     (13 files) — Claude Desktop, Cursor, VS Code, Windsurf, Claude Code, Roo Code, Codex CLI, OpenCode, Continue, Zed
   ├── src/commands/   (38 files) — one file per subcommand
   ├── src/core/       (43 files) — business logic services
   └── src/utils/       (3 files) — logger, paths, constants
@@ -134,7 +134,7 @@ mcpman CLI (38 commands)
 
 | Feature | mcpman | Smithery CLI | mcpm.sh |
 |---------|--------|--------------|---------|
-| Multi-client (4) | Yes | Claude only | Limited |
+| Multi-client (10) | Yes | Claude only | Limited |
 | Lockfile | Yes | No | No |
 | Encrypted vault | Yes | No | No |
 | Cross-client sync | Yes | No | No |
@@ -161,10 +161,10 @@ mcpman CLI (38 commands)
 
 ## Stakeholders
 
-- **Primary Users:** Developers using Claude, Cursor, VS Code, Windsurf with MCP servers
+- **Primary Users:** Developers using Claude Desktop, Claude Code CLI, Cursor, VS Code, Windsurf, Roo Code, Codex CLI, OpenCode, Continue, or Zed with MCP servers
 - **Secondary:** Teams sharing MCP configurations via Git or export bundles
 - **Ecosystem:** Plugin authors extending mcpman with custom registries
-- **Platforms:** Anthropic (Claude), Anysphere (Cursor), Codeium (Windsurf), Microsoft (VS Code)
+- **Platforms:** Anthropic (Claude Desktop + Claude Code CLI), Anysphere (Cursor), Codeium (Windsurf), Microsoft (VS Code), Roo Veterinary Inc. (Roo Code), OpenAI (Codex CLI), OpenCode, Continue Dev (Continue), Zed Industries (Zed)
 
 ## Constraints & Assumptions
 
@@ -175,7 +175,7 @@ mcpman CLI (38 commands)
 
 **Assumptions:**
 - Users have npm/npx available
-- AI clients store config as JSON files
+- AI clients store config as JSON, YAML, or TOML files (format varies per client)
 - MCP servers respond to JSON-RPC initialize + tools/list
 - Users accept password-protected vault for secrets
 

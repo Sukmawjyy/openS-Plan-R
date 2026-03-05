@@ -42,7 +42,24 @@ export function getCommandList(): string[] {
     "group",
     "pin",
     "rollback",
+    "validate",
+    "status",
+    "replay",
+    "alias",
+    "template",
+    "notify",
+    "skill",
+    "agent",
+    "serve",
+    "dashboard",
+    "publish",
+    "team",
   ];
+}
+
+/** Subcommands for commands that have nested subcommands */
+export function getSkillSubcommands(): string[] {
+  return ["install", "list", "remove", "sync", "export"];
 }
 
 /** Commands that take a server name as their first argument */
@@ -71,7 +88,18 @@ export function getServerNames(lockfilePath?: string): string[] {
 
 /** Valid client types for --client flag completion */
 export function getClientTypes(): string[] {
-  return ["claude-desktop", "cursor", "vscode", "windsurf"];
+  return [
+    "claude-desktop",
+    "cursor",
+    "vscode",
+    "windsurf",
+    "claude-code",
+    "roo-code",
+    "codex-cli",
+    "opencode",
+    "continue",
+    "zed",
+  ];
 }
 
 // ── Bash ───────────────────────────────────────────────────────────────────────
@@ -98,7 +126,7 @@ _mcpman_completions() {
       COMPREPLY=($(compgen -W "$(mcpman completions --list-servers 2>/dev/null)" -- "$cur"))
       ;;
     --client|-c)
-      COMPREPLY=($(compgen -W "claude-desktop cursor vscode windsurf" -- "$cur"))
+      COMPREPLY=($(compgen -W "claude-desktop cursor vscode windsurf claude-code roo-code codex-cli opencode continue zed" -- "$cur"))
       ;;
     --runtime|-r)
       COMPREPLY=($(compgen -W "node python" -- "$cur"))
@@ -173,7 +201,7 @@ end
 
 # --client flag completions
 complete -c mcpman -l client -s c \\
-  -a "claude-desktop cursor vscode windsurf" \\
+  -a "claude-desktop cursor vscode windsurf claude-code roo-code codex-cli opencode continue zed" \\
   -d "Target client"
 
 # --runtime flag completions

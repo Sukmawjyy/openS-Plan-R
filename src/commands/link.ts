@@ -25,7 +25,8 @@ export default defineCommand({
     },
     client: {
       type: "string",
-      description: "Register with specific client only (claude-desktop, cursor, vscode, windsurf)",
+      description:
+        "Register with specific client only (claude-desktop, cursor, vscode, windsurf, claude-code, roo-code, codex-cli, opencode, continue, zed)",
       alias: "c",
     },
     name: {

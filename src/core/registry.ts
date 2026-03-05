@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { resolveFromMcpman as _resolveFromMcpman } from "./mcpman-registry-client.js";
 
 export interface EnvVarSpec {
   name: string;
@@ -129,6 +130,9 @@ export async function resolveFromNpm(packageName: string): Promise<ServerMetadat
     resolved,
   };
 }
+
+// Re-export resolveFromMcpman so consumers can import from registry.ts
+export { _resolveFromMcpman as resolveFromMcpman };
 
 // Resolve from GitHub URL (best-effort)
 export async function resolveFromGitHub(githubUrl: string): Promise<ServerMetadata> {

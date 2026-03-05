@@ -7,7 +7,7 @@ export interface PackageInfo {
   name: string;
   version: string;
   description: string;
-  source: "npm" | "smithery" | "github";
+  source: "npm" | "smithery" | "github" | "local" | "mcpman";
   runtime: string;
   envVars: string[];
   weeklyDownloads: number;
@@ -25,7 +25,7 @@ export interface PackageInfo {
 async function buildInfo(
   name: string,
   entry: LockEntry | null,
-  source: "npm" | "smithery" | "github" = "npm",
+  source: "npm" | "smithery" | "github" | "local" | "mcpman" = "npm",
 ): Promise<PackageInfo | null> {
   // For non-npm sources without lockfile entry, cannot fetch metadata
   const resolvedSource = entry?.source ?? source;

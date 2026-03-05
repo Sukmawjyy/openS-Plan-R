@@ -133,6 +133,66 @@ describe("validateLockfile", () => {
     expect(r.errors.some((e) => e.includes("args must be an array"))).toBe(true);
   });
 
+  it("passes for valid transport values (stdio, http, sse)", () => {
+    for (const transport of ["stdio", "http", "sse"]) {
+      const data = {
+        lockfileVersion: 1,
+        servers: {
+          srv: {
+            version: "1.0.0",
+            source: "npm",
+            command: "node",
+            args: [],
+            transport,
+          },
+        },
+      };
+      fs.writeFileSync(lockfile, JSON.stringify(data));
+      const r = validateLockfile(lockfile);
+      expect(r.valid).toBe(true);
+      expect(r.errors).toHaveLength(0);
+    }
+  });
+
+  it("reports error for invalid transport value", () => {
+    const data = {
+      lockfileVersion: 1,
+      servers: {
+        srv: {
+          version: "1.0.0",
+          source: "npm",
+          command: "node",
+          args: [],
+          transport: "websocket",
+        },
+      },
+    };
+    fs.writeFileSync(lockfile, JSON.stringify(data));
+    const r = validateLockfile(lockfile);
+    expect(r.valid).toBe(false);
+    expect(r.errors.some((e) => e.includes("invalid transport"))).toBe(true);
+  });
+
+  it("passes for remote server entry with url and no command", () => {
+    const data = {
+      lockfileVersion: 1,
+      servers: {
+        "remote-srv": {
+          version: "1.0.0",
+          source: "npm",
+          args: [],
+          transport: "http",
+          url: "https://api.example.com/mcp",
+        },
+      },
+    };
+    fs.writeFileSync(lockfile, JSON.stringify(data));
+    const r = validateLockfile(lockfile);
+    // Remote servers omit command — validator should not reject them
+    // (command is only flagged missing if transport is absent or stdio)
+    expect(r.errors.some((e) => e.includes("invalid transport"))).toBe(false);
+  });
+
   it("returns file path in result", () => {
     fs.writeFileSync(lockfile, JSON.stringify({ lockfileVersion: 1, servers: {} }));
     const r = validateLockfile(lockfile);

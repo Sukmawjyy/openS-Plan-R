@@ -18,13 +18,30 @@ import type { SyncAction } from "../core/config-diff.js";
 import { readLockfile } from "../core/lockfile.js";
 import { applySyncActions, getClientConfigs } from "../core/sync-engine.js";
 
-const VALID_CLIENTS: ClientType[] = ["claude-desktop", "cursor", "vscode", "windsurf"];
+const VALID_CLIENTS: ClientType[] = [
+  "claude-desktop",
+  "cursor",
+  "vscode",
+  "windsurf",
+  "claude-code",
+  "roo-code",
+  "codex-cli",
+  "opencode",
+  "continue",
+  "zed",
+];
 
 const CLIENT_DISPLAY: Record<ClientType, string> = {
   "claude-desktop": "Claude Desktop",
   cursor: "Cursor",
   vscode: "VS Code",
   windsurf: "Windsurf",
+  "claude-code": "Claude Code",
+  "roo-code": "Roo Code",
+  "codex-cli": "Codex CLI",
+  opencode: "OpenCode",
+  continue: "Continue",
+  zed: "Zed",
 };
 
 export default defineCommand({
@@ -46,7 +63,7 @@ export default defineCommand({
     source: {
       type: "string",
       description:
-        "Use a specific client as source of truth (claude-desktop, cursor, vscode, windsurf)",
+        "Use a specific client as source of truth (claude-desktop, cursor, vscode, windsurf, claude-code, roo-code, codex-cli, opencode, continue, zed)",
     },
     yes: {
       type: "boolean",
@@ -74,7 +91,7 @@ export default defineCommand({
 
     if (configs.size === 0) {
       p.log.warn(
-        "No AI clients detected. Install Claude Desktop, Cursor, VS Code, or Windsurf first.",
+        "No AI clients detected. Install Claude Desktop, Cursor, VS Code, Windsurf, Claude Code, Roo Code, Codex CLI, OpenCode, Continue, or Zed first.",
       );
       process.exit(0);
     }

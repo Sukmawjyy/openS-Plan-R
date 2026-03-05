@@ -38,6 +38,19 @@ function entryDiffs(a: ServerEntry, b: ServerEntry): string[] {
     diffs.push(`env: ${aEnv} → ${bEnv}`);
   }
 
+  // Remote transport fields
+  if (a.type !== b.type) {
+    diffs.push(`type: ${a.type ?? "stdio"} → ${b.type ?? "stdio"}`);
+  }
+  if (a.url !== b.url) {
+    diffs.push(`url: ${a.url ?? "(none)"} → ${b.url ?? "(none)"}`);
+  }
+  const aHeaders = JSON.stringify(a.headers ?? {});
+  const bHeaders = JSON.stringify(b.headers ?? {});
+  if (aHeaders !== bHeaders) {
+    diffs.push(`headers: ${aHeaders} → ${bHeaders}`);
+  }
+
   return diffs;
 }
 

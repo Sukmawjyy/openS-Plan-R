@@ -148,4 +148,37 @@ describe("lockfile", () => {
       expect(data.servers).toEqual({});
     });
   });
+
+  describe("remote transport fields", () => {
+    it("preserves transport and url fields through read/write cycle", () => {
+      const remoteEntry = makeEntry({
+        transport: "http",
+        url: "https://api.example.com/mcp",
+        command: "",
+      });
+      addEntry("remote-server", remoteEntry, lockfilePath);
+      const data = readLockfile(lockfilePath);
+      expect(data.servers["remote-server"].transport).toBe("http");
+      expect(data.servers["remote-server"].url).toBe("https://api.example.com/mcp");
+    });
+
+    it("preserves sse transport field through read/write cycle", () => {
+      const sseEntry = makeEntry({
+        transport: "sse",
+        url: "https://stream.example.com/events",
+        command: "",
+      });
+      addEntry("sse-server", sseEntry, lockfilePath);
+      const data = readLockfile(lockfilePath);
+      expect(data.servers["sse-server"].transport).toBe("sse");
+      expect(data.servers["sse-server"].url).toBe("https://stream.example.com/events");
+    });
+
+    it("omits transport field for stdio entries (field absent)", () => {
+      addEntry("stdio-server", makeEntry(), lockfilePath);
+      const data = readLockfile(lockfilePath);
+      expect(data.servers["stdio-server"].transport).toBeUndefined();
+      expect(data.servers["stdio-server"].url).toBeUndefined();
+    });
+  });
 });

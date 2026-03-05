@@ -16,6 +16,7 @@ export interface RegistryEntry {
 const BUILTIN_REGISTRIES: RegistryEntry[] = [
   { name: "npm", url: "https://registry.npmjs.org", builtin: true },
   { name: "smithery", url: "https://registry.smithery.ai", builtin: true },
+  { name: "mcpman", url: "https://registry.mcpman.dev/api", builtin: true },
 ];
 
 /** Validate URL format using the URL constructor — throws on invalid */

@@ -7,7 +7,7 @@
 import { defineCommand } from "citty";
 import pc from "picocolors";
 import { readLockfile } from "../core/lockfile.js";
-import { testMcpServer } from "../core/mcp-tester.js";
+import { testMcpServer, testRemoteMcpServer } from "../core/mcp-tester.js";
 import { parseEnvFlags } from "../core/server-resolver.js";
 import { getMasterPassword, getSecretsForServer, listSecrets } from "../core/vault-service.js";
 
@@ -54,7 +54,28 @@ export default defineCommand({
         continue;
       }
 
-      // Build env with vault secrets
+      // Route to remote tester for HTTP/SSE servers
+      if (entry.transport === "http" || entry.transport === "sse") {
+        const result = await testRemoteMcpServer(name, entry.url ?? entry.resolved, {});
+        if (result.passed) {
+          passed++;
+          console.log(
+            `  ${pc.green("✓")} ${pc.bold(name)} ${pc.dim(`[${entry.transport}]`)} ${pc.dim(`(${result.responseTimeMs}ms)`)}`,
+          );
+          if (result.tools.length > 0) {
+            console.log(pc.dim(`    Tools: ${result.tools.join(", ")}`));
+          }
+        } else {
+          failed++;
+          console.log(
+            `  ${pc.red("✗")} ${pc.bold(name)} ${pc.dim(`[${entry.transport}]`)} ${pc.dim(`(${result.responseTimeMs}ms)`)}`,
+          );
+          if (result.error) console.log(`    ${pc.red(result.error)}`);
+        }
+        continue;
+      }
+
+      // Stdio: build env with vault secrets
       const lockEnv = parseEnvFlags(entry.envVars);
       const vaultEnv = await loadVaultSecrets(name);
       const env = { ...lockEnv, ...vaultEnv };
